@@ -1,10 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { Link, Stack } from 'expo-router';
 
-export default function App() {
+export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Stack.Screen options={{title: 'Allocations'}}/>
+
+      <Text>Allocations</Text>
+
+      <Link href="/allocations/new">New Allocation</Link>
       <StatusBar style="auto" />
     </View>
   );
