@@ -3,20 +3,9 @@ import AccountListItem from './AccountListItem';
 import { accountsCollection } from '../db';
 import Account from '../model/Account';
 
-
-import { withObservables } from '@nozbe/watermelondb/react'
+import { withObservables } from '@nozbe/watermelondb/react';
 
 function AccountsList({ accounts }: { accounts: Account[] }) {
-  // const [accounts, setAccounts] = useState<Account[]>([]);
-
-  // useEffect(() => {
-  //   const fetchAccounts = async () => {
-  //     const accounts = await accountsCollection.query().fetch();
-  //     setAccounts(accounts);
-  //   };
-  //   fetchAccounts();
-  // }, []);
-
   return (
     <FlatList
       data={accounts}

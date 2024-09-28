@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import Account from '../model/Account';
-import { withObservables } from '@nozbe/watermelondb/react'
-import AntDesign from '@expo/vector-icons/AntDesign';
+import { withObservables } from '@nozbe/watermelondb/react';
+import { AntDesign } from '@expo/vector-icons';
 import database from '../db';
 
 type AccountListItem = {
@@ -9,7 +9,6 @@ type AccountListItem = {
 };
 
 function AccountListItem({ account }: AccountListItem) {
-
   const onDelete = async () => {
     await database.write(async () => {
       await account.markAsDeleted();
@@ -27,10 +26,11 @@ function AccountListItem({ account }: AccountListItem) {
 }
 
 const enhance = withObservables(
-  ['account'], 
+  ['account'],
   ({ account }: AccountListItem) => ({
-  account,
-}));
+    account,
+  })
+);
 
 export default enhance(AccountListItem);
 
