@@ -1,11 +1,16 @@
 import { View, Text, StyleSheet } from 'react-native';
+import Account from '../model/Account';
 
-export default function AccountListItem() {
+type AccountListItem = {
+  account: Account;
+};
+
+export default function AccountListItem({ account }: AccountListItem) {
   return (
     <View style={styles.container}>
-      <Text style={styles.name}>Profit</Text>
-      <Text style={styles.percentage}>10%</Text>
-      <Text style={styles.percentage}>20%</Text>
+      <Text style={styles.name}>{account.name}</Text>
+      <Text style={styles.percentage}>{account.cap}%</Text>
+      <Text style={styles.percentage}>{account.tap}%</Text>
     </View>
   );
 }
@@ -13,7 +18,7 @@ export default function AccountListItem() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    padding: 10,
+    padding: 2,
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderRadius: 5,
