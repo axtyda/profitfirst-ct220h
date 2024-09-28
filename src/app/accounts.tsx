@@ -23,11 +23,6 @@ export default function AccountsScreen() {
     setTap('');
   };
 
-  const onRead = async () => {
-    const accounts = await accountsCollection.query().fetch();
-    console.log(accounts);
-
-  };
 
   return (
     <View style={{ gap: 5, padding: 5 }}>
@@ -61,6 +56,7 @@ export default function AccountsScreen() {
       </View>
 
       <Button title="Add account" onPress={createAccount} />
+
     </View>
   );
 }
