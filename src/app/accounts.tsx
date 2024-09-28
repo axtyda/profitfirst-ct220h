@@ -9,8 +9,6 @@ export default function AccountsScreen() {
   const [tap, setTap] = useState('');
 
   const createAccount = async () => {
-    console.warn('Create account: ', name);
-
     await database.write(async () => {
       await accountsCollection.create((account) => {
         account.name = name;
@@ -22,7 +20,6 @@ export default function AccountsScreen() {
     setCap('');
     setTap('');
   };
-
 
   return (
     <View style={{ gap: 5, padding: 5 }}>
@@ -56,7 +53,6 @@ export default function AccountsScreen() {
       </View>
 
       <Button title="Add account" onPress={createAccount} />
-
     </View>
   );
 }
