@@ -1,28 +1,38 @@
 import { Stack, router } from 'expo-router';
 import { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
-import database, { accountAllocationCollection, accountsCollection, allocationsCollection } from '../../db';
+import database, {
+  accountAllocationCollection,
+  accountsCollection,
+  allocationsCollection,
+} from '../../../db';
 import { withObservables } from '@nozbe/watermelondb/react';
-import Account from '../../model/Account';
+import Account from '../../../model/Account';
+import { useAuth } from '../../../providers/AuthProvider';
 
 function NewAllocationScreen({ accounts }: { accounts: Account[] }) {
   const [income, setIncome] = useState('0');
 
+  const { user } = useAuth();
+
   const save = async () => {
     await database.write(async () => {
-    const allocation = await allocationsCollection.create((newAllocation) => {
+      const allocation = await allocationsCollection.create((newAllocation) => {
         newAllocation.income = Number.parseFloat(income);
+        newAllocation.userId = user?.id;
       });
 
-      await Promise.all(account.map(account => accountAllocationCollection.create((item) => {
-        item.account.set(account);
-        item.allocation.set(allocation);
-        item.cap = account.cap;
-        item.amount = (allocation.income * account.cap) / 100;
-      })
-    )
-  );
-
+      await Promise.all(
+        accounts.map((account) =>
+          accountAllocationCollection.create((item) => {
+            item.account.set(account);
+            item.allocation.set(allocation);
+            item.cap = account.cap;
+            item.amount = (allocation.income * account.cap) / 100;
+            item.userId = user?.id;
+          })
+        )
+      );
     });
     setIncome('');
     router.back();
