@@ -26,8 +26,3 @@ export default function AccountsList() {
     );
 }
 
-// const enhance = withObservables([], () => ({
-//     accounts: accountsCollection.query(),
-//   }));
-  
-// export default enhance(AccountsList);
