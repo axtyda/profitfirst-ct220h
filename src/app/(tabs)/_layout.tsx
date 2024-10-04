@@ -1,6 +1,7 @@
 import { Redirect, Tabs } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useAuth } from '../../providers/AuthProvider';
+// import { Alert, TouchableOpacity, View, Text } from 'react-native';
 
 export default function TabsLayout() {
   const { isAuthenticated } = useAuth();
@@ -34,7 +35,15 @@ export default function TabsLayout() {
           ),
         }}
       />
-      {/* <Tabs.Screen name="index" options={{ href: null }} /> */}
+      <Tabs.Screen
+        name="session"
+        options={{
+          title: 'Session Info',
+          tabBarIcon: ({ size, color }) => (
+            <MaterialIcons name="info" size={size} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

@@ -12,12 +12,14 @@ type AuthContext = {
   session: Session | null;
   user: User | null;
   isAuthenticated: boolean;
+  logout: () => void; // Add logout function type
 };
 
 const AuthContext = createContext<AuthContext>({
   session: null,
   user: null,
   isAuthenticated: false,
+  logout: () => {}, // Default logout function
 });
 
 export default function AuthProvider({ children }: PropsWithChildren) {
@@ -26,9 +28,6 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       setSession(session);
-      // if (!session) {
-      //   supabase.auth.signInAnonymously();
-      // }
     });
 
     supabase.auth.onAuthStateChange((_event, session) => {
@@ -36,12 +35,18 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     });
   }, []);
 
+  const logout = async () => {
+    await supabase.auth.signOut();
+    setSession(null);
+  };
+
   return (
     <AuthContext.Provider
       value={{
         session,
         user: session?.user,
         isAuthenticated: !!session?.user && !session?.user.is_anonymous,
+        logout, // Provide logout function
       }}
     >
       {children}
