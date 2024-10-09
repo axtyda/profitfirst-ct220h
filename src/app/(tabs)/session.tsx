@@ -7,7 +7,7 @@ export default function SessionScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Session Info</Text>
+      <Text style={styles.title}>Profile</Text>
       
       <View style={styles.infoContainer}>
         <Text style={styles.label}>Email:</Text>

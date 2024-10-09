@@ -1,6 +1,6 @@
 import { Stack, router } from 'expo-router';
 import { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import database, {
   accountAllocationCollection,
   accountsCollection,
@@ -35,44 +35,44 @@ function NewAllocationScreen({ accounts }: { accounts: Account[] }) {
         )
       );
     });
-
-    // Gọi mySync
-    await mySync();
-    
     setIncome('');
     router.back();
-
+    
+    // Gọi mySync
+    await mySync();
   };
 
   return (
     <View style={styles.container}>
       <Stack.Screen options={{ title: 'New Allocation' }} />
 
-      <View style={styles.inputRow}>
-        <Text style={styles.label}>Income</Text>
-        <TextInput
-          value={income}
-          onChangeText={setIncome}
-          placeholder="$123"
-          style={styles.input}
-          keyboardType="numeric"
-        />
-      </View>
-
-      {accounts.map((account) => (
-        <View key={account.id} style={styles.inputRow}>
-          <Text style={styles.accountText}>
-            {account.name}: {account.cap}%
-          </Text>
-          <Text style={styles.amount}>
-            ${((Number.parseFloat(income) * account.cap) / 100).toFixed(2)}
-          </Text>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.inputRow}>
+          <Text style={styles.label}>Income</Text>
+          <TextInput
+            value={income}
+            onChangeText={setIncome}
+            placeholder="$123"
+            style={styles.input}
+            keyboardType="numeric"
+          />
         </View>
-      ))}
 
-      <TouchableOpacity style={styles.button} onPress={save}>
-        <Text style={styles.buttonText}>Save</Text>
-      </TouchableOpacity>
+        {accounts.map((account) => (
+          <View key={account.id} style={styles.inputRow}>
+            <Text style={styles.accountText}>
+              {account.name}: {account.cap}%
+            </Text>
+            <Text style={styles.amount}>
+              ${((Number.parseFloat(income) * account.cap) / 100).toFixed(2)}
+            </Text>
+          </View>
+        ))}
+
+        <TouchableOpacity style={styles.button} onPress={save}>
+          <Text style={styles.buttonText}>Save</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 }
@@ -85,15 +85,17 @@ export default enhance(NewAllocationScreen);
 
 const styles = StyleSheet.create({
   container: {
-    padding: 15,
-    backgroundColor: '#F9FAFB', // Light background for modern look
     flex: 1,
-    gap: 15,
+    backgroundColor: '#F9FAFB',
+  },
+  scrollContainer: {
+    padding: 15,
+    paddingBottom: 100, // Make sure there's space at the bottom
   },
   label: {
     fontWeight: 'bold',
     fontSize: 16,
-    color: '#374151', // Dark gray for a modern text color
+    color: '#374151',
     width: 100,
   },
   inputRow: {
@@ -106,30 +108,30 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    elevation: 3, // Shadow for floating effect
+    elevation: 3,
     marginBottom: 10,
   },
   input: {
     flex: 1,
     paddingVertical: 10,
     paddingHorizontal: 15,
-    backgroundColor: '#F3F4F6', // Off-white background for input
+    backgroundColor: '#F3F4F6',
     borderRadius: 8,
-    borderColor: '#D1D5DB', // Light gray border
+    borderColor: '#D1D5DB',
     borderWidth: 1,
   },
   accountText: {
     flex: 1,
     fontSize: 16,
-    color: '#374151', // Modern dark text color
+    color: '#374151',
   },
   amount: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#F43F5E', // Red to match the design accent
+    color: '#F43F5E',
   },
   button: {
-    backgroundColor: '#F43F5E', // Red button for save action
+    backgroundColor: '#F43F5E',
     borderRadius: 10,
     paddingVertical: 15,
     alignItems: 'center',
@@ -138,7 +140,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    elevation: 3, // Floating button effect
+    elevation: 3,
+    marginTop: 20, // Ensure space above the button
   },
   buttonText: {
     color: 'white',

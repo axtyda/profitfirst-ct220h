@@ -1,7 +1,9 @@
 import { Redirect, Tabs } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useAuth } from '../../providers/AuthProvider';
-// import { Alert, TouchableOpacity, View, Text } from 'react-native';
+import Feather from '@expo/vector-icons/Feather';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 export default function TabsLayout() {
   const { isAuthenticated } = useAuth();
@@ -11,7 +13,11 @@ export default function TabsLayout() {
   }
 
   return (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: '#f53f5e', // dinh nghia mau
+      }}
+    >
       <Tabs.Screen
         name="allocations"
         options={{
@@ -27,10 +33,7 @@ export default function TabsLayout() {
         options={{
           title: 'Accounts',
           tabBarIcon: ({ size, color }) => (
-            <MaterialIcons
-              name="account-balance-wallet"
-              size={size}
-              color={color}
+            <MaterialIcons name="account-balance-wallet" size={size} color={color}
             />
           ),
         }}
@@ -38,10 +41,9 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="session"
         options={{
-          title: 'Session Info',
+          title: 'Profile',
           tabBarIcon: ({ size, color }) => (
-            <MaterialIcons name="info" size={size} color={color} />
-          ),
+<FontAwesome6 name="user-large" size={20} color={color} />),
         }}
       />
     </Tabs>

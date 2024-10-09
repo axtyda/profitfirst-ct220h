@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import {
   Alert,
   StyleSheet,
@@ -8,13 +8,23 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { supabase } from '../../lib/supabase';
-import { useRouter } from 'expo-router';
-
+import { useRouter,useNavigation } from 'expo-router';
+import AntDesign from '@expo/vector-icons/AntDesign';
 export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  
+  const navigation = useNavigation();
+
+  // Hide the header for this screen
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, [navigation]);
+
 
   async function signInWithEmail() {
     setLoading(true);
@@ -81,12 +91,15 @@ export default function Auth() {
 
       <View style={styles.socialButtonsContainer}>
         <TouchableOpacity style={styles.socialButton}>
-          <Text style={styles.socialButtonText}>G</Text>
+          <AntDesign name="google" size={16} color="black" />
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.socialButton}>
-          <Text style={styles.socialButtonText}></Text>
+          <AntDesign name="apple1" size={16} color="black" />
         </TouchableOpacity>
+
       </View>
+
     </View>
   );
 }
@@ -130,7 +143,7 @@ const styles = StyleSheet.create({
     color: '#6B6B6B',
   },
   signInButton: {
-    backgroundColor: '#FF6363',
+    backgroundColor: '#F43F5E', // Header background with color matching "Sign In" button
     paddingVertical: 15,
     borderRadius: 10,
     marginBottom: 20,
@@ -169,6 +182,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#E5E5E5',
+    justifyContent: 'center',
   },
   socialButtonText: {
     fontSize: 18,

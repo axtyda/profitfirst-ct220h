@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import {
   Alert,
   StyleSheet,
@@ -8,12 +8,21 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { supabase } from '../../lib/supabase';
+import { router, useNavigation } from 'expo-router';
 
 export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, [navigation]);
+
 
   async function signUpWithEmail() {
     if (password !== confirmPassword) {
@@ -91,7 +100,8 @@ export default function Register() {
         <Text style={styles.signUpButtonText}>SIGN UP</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => Alert.alert('Navigate to sign in')}>
+      <TouchableOpacity onPress={() => router.back()}>
+        {/* router=navigation.navigate */}
         <Text style={styles.signInText}>
           Already have an account? <Text style={styles.signInLink}>Sign In</Text>
         </Text>
@@ -132,7 +142,7 @@ const styles = StyleSheet.create({
     borderColor: '#E5E5E5',
   },
   signUpButton: {
-    backgroundColor: '#FF6363',
+    backgroundColor: '#F43F5E', // Header background with color matching "Sign In" button
     paddingVertical: 15,
     borderRadius: 10,
     marginBottom: 20,
