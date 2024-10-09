@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F34F5E', // Header background with color matching "Sign In" button
     borderRadius: 10,
     marginBottom: 10,
+    top: -5,
   },
   headerText: {
     color: 'white', // White text for the header

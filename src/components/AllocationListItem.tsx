@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
     backgroundColor: '#fad7da',
+    // top: 0,
   },
   header: {
     flexDirection: 'row',
