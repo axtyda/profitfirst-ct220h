@@ -9,6 +9,7 @@ import database, {
 import { withObservables } from '@nozbe/watermelondb/react';
 import Account from '../../../model/Account';
 import { useAuth } from '../../../providers/AuthProvider';
+import { mySync } from '../../../db/sync';
 
 function NewAllocationScreen({ accounts }: { accounts: Account[] }) {
   const [income, setIncome] = useState('0');
@@ -34,8 +35,13 @@ function NewAllocationScreen({ accounts }: { accounts: Account[] }) {
         )
       );
     });
+
+    // Gọi mySync
+    await mySync();
+    
     setIncome('');
     router.back();
+
   };
 
   return (

@@ -1,9 +1,10 @@
-
 import { View, Text, StyleSheet, Button, TextInput, TouchableOpacity } from 'react-native';
 import AccountsList from '../../components/AccountsList';
 import { useState } from 'react';
 import database, { accountsCollection } from '../../db';
 import { useAuth } from '../../providers/AuthProvider';
+import { useEffect } from 'react';
+import { mySync } from '../../db/sync';
 
 export default function AccountsScreen() {
   const [name, setName] = useState('');
@@ -21,9 +22,14 @@ export default function AccountsScreen() {
         account.userId = user?.id;
       });
     });
+
+    //Reset các giá trị input sau khi thêm tài khoản
     setName('');
     setCap('');
     setTap('');
+
+    //Gọi hàm mySync sau khi nhấn nút add account và reset là các giá trị
+    await mySync();
   };
 
   return (

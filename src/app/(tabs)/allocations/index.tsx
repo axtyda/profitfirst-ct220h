@@ -4,6 +4,7 @@ import { Link, Stack } from 'expo-router';
 import AllocationsList from '../../../components/AllocationsList';
 import { Feather } from '@expo/vector-icons';
 import { mySync } from '../../../db/sync';
+import { useEffect } from 'react';
 
 export default function HomeScreen() {
   return (
@@ -11,14 +12,14 @@ export default function HomeScreen() {
       <Stack.Screen
         options={{
           title: 'Allocations',
-          headerRight: () => (
-            <Feather
-              name="refresh-cw"
-              size={20}
-              color='#F34F5E'
-              onPress={mySync}
-            />
-          ),
+          // headerRight: () => (
+          //   <Feather
+          //     name="refresh-cw"
+          //     size={20}
+          //     color='#F34F5E'
+          //     onPress={mySync}
+          //   />
+          // ),
         }}
       />
 
