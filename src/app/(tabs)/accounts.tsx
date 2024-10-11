@@ -28,8 +28,8 @@ export default function AccountsScreen() {
     setCap('');
     setTap('');
 
-    //Gọi hàm mySync sau khi nhấn nút add account và reset là các giá trị
-    await mySync();
+    // //Gọi hàm mySync sau khi nhấn nút add account và reset là các giá trị
+    // await mySync();
   };
 
   return (

@@ -38,8 +38,8 @@ function NewAllocationScreen({ accounts }: { accounts: Account[] }) {
     setIncome('');
     router.back();
     
-    // Gọi mySync
-    await mySync();
+    // // Gọi mySync
+    // await mySync();
   };
 
   return (

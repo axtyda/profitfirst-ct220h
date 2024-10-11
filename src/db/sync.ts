@@ -4,8 +4,8 @@ import { supabase } from '../lib/supabase';
 import { getLoggedInUserId } from '../app/(auth)/getLoggedInUserId';
 
 export async function mySync() {
-  const loggedInUserId = await getLoggedInUserId();  // Lấy user_id người đăng nhập
 
+  const loggedInUserId = await getLoggedInUserId();  // Lấy user_id người đăng nhập
 
   await synchronize({
     database,
@@ -20,18 +20,14 @@ export async function mySync() {
 
       //hàm pulltest
 // Gọi hàm pull với user_id của người đăng nhập
-    const { data, error } = await supabase.rpc('test', {
-      last_pulled_at: lastPulledAt,
-      schemaversion: schemaVersion,
-      migration: migration,
-      _user_id: loggedInUserId  // Truyền user_id của người đăng nhập
-    });
+  const { data, error } = await supabase.rpc('test', {
+    last_pulled_at: lastPulledAt,
+    schemaversion: schemaVersion,
+    migration: migration,
+    _user_id: loggedInUserId  // Truyền user_id của người đăng nhập
+  });
 
 /////hàm pulltest
-
-
-
-
       console.log(error);
       console.log(JSON.stringify(data));
       return {
@@ -47,6 +43,8 @@ export async function mySync() {
       console.log('Error: ', error);
 
       console.log(changes);
+
+      console.log("Changes data: ", JSON.stringify(changes, null, 2));
 
       // push changes to supabase
     },

@@ -43,7 +43,7 @@ export default function TabsLayout() {
         options={{
           title: 'Profile',
           tabBarIcon: ({ size, color }) => (
-<FontAwesome6 name="user-large" size={20} color={color} />),
+            <FontAwesome6 name="user-large" size={20} color={color} />),
         }}
       />
     </Tabs>

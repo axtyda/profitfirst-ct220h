@@ -1,24 +1,32 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text,Button, TouchableOpacity, StyleSheet } from 'react-native';
 import { useAuth } from '../../providers/AuthProvider';
 
 export default function SessionScreen() {
   const { user, logout } = useAuth();
 
+  // return (
+  //   <View style={styles.container}>
+  //     <Text style={styles.title}>Profile</Text>
+      
+  //     <View style={styles.infoContainer}>
+  //       <Text style={styles.label}>Email:</Text>
+  //       <Text style={styles.value}>{user?.email}</Text>
+  //     </View>
+
+  //     <TouchableOpacity style={styles.logoutButton} onPress={logout}>
+  //       <Text style={styles.logoutButtonText}>Logout</Text>
+  //     </TouchableOpacity>
+  //   </View>
+  // );
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profile</Text>
-      
-      <View style={styles.infoContainer}>
-        <Text style={styles.label}>Email:</Text>
-        <Text style={styles.value}>{user?.email}</Text>
-      </View>
-
-      <TouchableOpacity style={styles.logoutButton} onPress={logout}>
-        <Text style={styles.logoutButtonText}>Logout</Text>
-      </TouchableOpacity>
+      <Text style={styles.label}>Email:</Text>
+      <Text style={styles.value}>{user?.email}</Text>
+      <Button title="Logout" onPress={logout} />
     </View>
   );
+
 }
 
 const styles = StyleSheet.create({

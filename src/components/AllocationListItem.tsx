@@ -1,8 +1,11 @@
 import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
 import Allocation from '../model/Allocation';
 import { withObservables } from '@nozbe/watermelondb/react';
 import AccountAllocation from '../model/AccountAllocation';
 import AccountAllocationItem from './AccountAllocationItem';
+import numeral from 'numeral'
+import { accountAllocationCollection } from '../db';
 
 type AllocationListItem = {
   allocation: Allocation;
@@ -19,7 +22,7 @@ const AllocationListItem = ({
         <Text style={styles.date}>
           {allocation.createdAt.toLocaleDateString()}
         </Text>
-        <Text style={styles.income}>${allocation.income}</Text>
+        <Text style={styles.income}>{numeral(allocation.income).format('0,0')},000VNĐ</Text>
       </View>
 
       <View style={{ gap: 5, padding: 10 }}>

@@ -5,8 +5,24 @@ import AllocationsList from '../../../components/AllocationsList';
 import { Feather } from '@expo/vector-icons';
 import { mySync } from '../../../db/sync';
 import { useEffect } from 'react';
+import { useRouter } from 'expo-router';
+import { router } from 'expo-router';
+import * as Crypto from 'expo-crypto';
+import { supabase } from '../../../lib/supabase';
 
 export default function HomeScreen() {
+  const test = async() =>{
+    const res  = await supabase.rpc('create_account', {
+      _id: Crypto.randomUUID(), 
+      _user_id: Crypto.randomUUID(),
+      _name: 'Example Name', 
+      _cap: 1000,
+      _tap: 500,
+      _create_at: new Date().toISOString(),
+      _updated_at: new Date().toISOString(),
+    });
+    console.log(res);
+  }
 
   // // Đồng bộ dữ liệu khi màn hình được load
   // useEffect(() => {
@@ -27,14 +43,14 @@ export default function HomeScreen() {
       <Stack.Screen
         options={{
           title: 'Allocations',
-          // headerRight: () => (
-          //   <Feather
-          //     name="refresh-cw"
-          //     size={20}
-          //     color='#F34F5E'
-          //     onPress={mySync}
-          //   />
-          // ),
+          headerRight: () => (
+            <Feather
+              name="refresh-cw"
+              size={20}
+              color='#F34F5E'
+              onPress={mySync}
+            />
+          ),
         }}
       />
 
