@@ -7,6 +7,21 @@ import { mySync } from '../../../db/sync';
 import { useEffect } from 'react';
 
 export default function HomeScreen() {
+
+  // // Đồng bộ dữ liệu khi màn hình được load
+  // useEffect(() => {
+  //   const syncData = async () => {
+  //     try {
+  //       await mySync();  // Gọi hàm đồng bộ khi màn hình này load
+  //     } catch (error) {
+  //       console.log('Error syncing data: ', error);
+  //     }
+  //   };
+
+  //   syncData();  // Gọi hàm sync ngay khi component được render lần đầu
+  // }, []);  // Mảng rỗng để chỉ chạy khi component mount lần đầu
+
+
   return (
     <View style={styles.container}>
       <Stack.Screen

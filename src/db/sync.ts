@@ -1,18 +1,37 @@
 import { synchronize } from '@nozbe/watermelondb/sync';
 import database from './index';
 import { supabase } from '../lib/supabase';
+import { getLoggedInUserId } from '../app/(auth)/getLoggedInUserId';
 
 export async function mySync() {
+  const loggedInUserId = await getLoggedInUserId();  // Lấy user_id người đăng nhập
+
+
   await synchronize({
     database,
     sendCreatedAsUpdated: true,
     pullChanges: async ({ lastPulledAt, schemaVersion, migration }) => {
       console.log('Pulling data');
-      const { data, error } = await supabase.rpc('pull', {
-        last_pulled_at: lastPulledAt,
-        schemaversion: schemaVersion,
-        migration: migration,
-      });
+      // const { data, error } = await supabase.rpc('pull', {
+      //   last_pulled_at: lastPulledAt,
+      //   schemaversion: schemaVersion,
+      //   migration: migration,
+      // });
+
+      //hàm pulltest
+// Gọi hàm pull với user_id của người đăng nhập
+    const { data, error } = await supabase.rpc('test', {
+      last_pulled_at: lastPulledAt,
+      schemaversion: schemaVersion,
+      migration: migration,
+      _user_id: loggedInUserId  // Truyền user_id của người đăng nhập
+    });
+
+/////hàm pulltest
+
+
+
+
       console.log(error);
       console.log(JSON.stringify(data));
       return {
